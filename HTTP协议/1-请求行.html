@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="../jquery-3.6.0.min.js"></script>
+</head>
+<body>
+    <button class="getBtn">发起GET请求</button>
+    <button class="postBtn">发起POST请求</button>
+
+    <script>
+
+        $(function(){
+            $('.getBtn').on('click',function(){
+                $.ajax({
+                    method:'GET',
+                    url:'http://www.liulongbin.top:3006/api/get',
+                    data:{
+                        name:'wxp',
+                        age:20
+                    },
+                    success:function(res){
+                        console.log(res);
+                    }
+                })
+            })
+
+            $('.postBtn').on('click',function(){
+                $.ajax({
+                    method:'POST',
+                    url:'http://www.liulongbin.top:3006/api/post',
+                    data:{
+                        name:'wxpaaaa',
+                        age:20111
+                    },
+                    success:function(res){
+                        console.log(res);
+                    }
+                })
+            })
+        })
+    </script>
+</body>
+</html>

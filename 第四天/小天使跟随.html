@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="../jquery-3.6.0.min.js"></script>
+    <style>
+        html,
+        body {
+            margin: 0;
+            padding: 0;
+            overflow: hidden;
+        }
+
+        .img {
+            position: absolute;
+
+        }
+    </style>
+</head>
+
+<body>
+    <img src="angel.gif" alt="" class="img">
+
+    <script>
+
+        // var img=document.querySelector('.img');
+        // document.addEventListener('mousemove',function getmove(e){
+        //     var x=e.pageX;
+        //     var y=e.pageY;
+        //     img.style.left=x+'px';
+        //     img.style.top=y+'px';
+        // })
+        $(function () {
+            var img = $('.img');
+            var timer = null;//定义节流阀
+            if (timer) { return }
+
+            $(document).on('mousemove', function (e) {
+                timer = setTimeout(function () {
+                    $('img').css('top', e.pageY + 'px').css('left', e.pageX + 'px');
+                    timer=null;
+                    console.log("33");
+                },16)
+
+            })
+        })
+    </script>
+</body>
+
+</html>

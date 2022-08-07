@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        .wsx {
+            width: 200px;
+            height: 100px;
+            border: 1px solid red;
+        }
+    </style>
+</head>
+<body>
+    <div class="wsx"></div>
+    <script>
+        const box=document.querySelector('.wsx');
+        box.onmouseover=function(){
+            const xhr=new XMLHttpRequest();
+            xhr.open('POST','http://127.0.0.1:8000/server');
+            xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+            xhr.send('name=张三&age=19');
+            xhr.onreadystatechange=function(){
+                if(xhr.readyState===4&&xhr.status===200){
+                    box.innerHTML=xhr.response;
+                }
+            }
+        }
+    </script>
+</body>
+</html>

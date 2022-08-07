@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="bootstrap.css">
+    <script src="../jquery-3.6.0.min.js"></script>
+</head>
+
+<body>
+    <!-- 1、定义UI 结构 -->
+
+    <!-- 1、文件选择框 -->
+    <input type="file" id="file1">
+    <!-- 2、上传文件的按钮 -->
+    <button id="btn">上传文件</button>
+    <!-- bootstrap 中的进度条 -->
+    <div class="progress" style="width: 500px; margin: 15px 10px;">
+        <div class="progress-bar progress-bar-striped active" style="width: 0%" id="percent">
+            0%
+        </div>
+    </div>
+    <br>
+    <!-- 3、img标签：用来显示成功上传以后的图片 -->
+    <img src="" alt="" id="img" width="800" />
+
+    
+
+    <script>
+        //获取文件上传按钮
+        var btn = document.querySelector('#btn');
+        btn.addEventListener('click', function (e) {
+            // 获取用户选择的文件列表
+            //files 返回的是数组
+            var files = document.querySelector('#file1').files;
+            if (files.length <= 0) {
+                return alert("请选择要上传的文件");
+            }
+            var fd = new FormData();
+            //将用户选择的文件添加到FormData
+            fd.append('avatar', files[0]);
+
+            var xhr = new XMLHttpRequest();
+
+            //监听文件上传进度
+            xhr.upload.onprogress = function (e) {
+                if (e.lengthComputable) {
+                    //计算出上传的进度
+                    // e.loaded 已传输的字节
+                    // e.total 需传输的粽子节
+                    var procent = Math.ceil(e.loaded / e.total * 100);
+                    console.log(procent);
+                    $('.active').attr('style','width:'+procent+'%').html(procent+'%');
+                }
+            }
+            //检测是否达到100
+            xhr.upload.onload=function(e){
+                $('.active').removeClass().addClass('progress-bar progress-bar-success');
+            }
+
+            //调用open 指定请求类型与URL 地址 请求类型必须为POST
+            xhr.open('POST', 'http://www.liulongbin.top:3006/api/upload/avatar');
+
+            //发送请求
+            xhr.send(fd);
+
+            xhr.onreadystatechange = function () {
+                if (xhr.readyState === 4 && xhr.status === 200) {
+                    var data = JSON.parse(xhr.responseText);
+                    console.log(data);
+                    if (data.status === 200)//上传文件成功
+                        document.querySelector('#img').src = 'http://www.liulongbin.top:3006' + data.url;
+                    else {
+                        console.log(data.message);
+                    }
+                }
+
+            }
+
+        })
+    </script>
+</body>
+
+</html>

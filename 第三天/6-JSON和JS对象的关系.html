@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+
+    <script>
+        var o = {
+            a: 'hello',
+            b:'word'
+        };
+        // console.log(o);
+        //js转换为 json
+        var jsonStr=JSON.stringify({a:"dadadao",b:"word",c:true});
+        // console.log(typeof jsonStr);//string
+        console.log(jsonStr);
+
+        //json转换js
+        var json=JSON.parse('{"a":"hello","b":"word"}');
+        console.log(json);
+    </script>
+</body>
+
+</html>
